@@ -3,3 +3,6 @@ pl:
     pja:
       tpo02:
         filename: "dictionary.csv"
+spring:
+  banner:
+    location: classpath:logo-app.txt

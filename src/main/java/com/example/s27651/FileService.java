@@ -32,7 +32,7 @@ public class FileService {
             while ((line = br.readLine()) != null) {
                 // Log each line read from the file
                 logger.debug("Read line: {}", line);
-                String[] words = line.split(" ");
+                String[] words = line.split(";");
                 Entry entry = new Entry();
                 entry.setEnglishWord(words[0]);
                 entry.setPolishWord(words[1]);

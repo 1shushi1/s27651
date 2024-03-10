@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -23,6 +22,7 @@ public class FileService {
     public FileService(EntryRepository entryRepository) {
         this.entryRepository = entryRepository;
     }
+
     @PostConstruct
     public void fileReader() {
         logger.info("Reading file: {}", dictionaryFilename);
@@ -32,7 +32,7 @@ public class FileService {
             while ((line = br.readLine()) != null) {
                 // Log each line read from the file
                 logger.debug("Read line: {}", line);
-                String[] words = line.split(" ");
+                String[] words = line.split(";");
                 Entry entry = new Entry();
                 entry.setEnglishWord(words[0]);
                 entry.setPolishWord(words[1]);
@@ -40,7 +40,6 @@ public class FileService {
                 entryRepository.addTranslation(entry);
             }
         } catch (IOException e) {
-            // Log any IOExceptions
             logger.error("Error reading file: {}", e.getMessage());
         }
     }

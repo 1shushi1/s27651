@@ -26,17 +26,15 @@ public class FileService {
     @PostConstruct
     public void fileReader() {
         logger.info("Reading file: {}", dictionaryFilename);
-        // Your file reading logic goes here
         try (BufferedReader br = new BufferedReader(new FileReader(new File(dictionaryFilename)))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Log each line read from the file
                 logger.debug("Read line: {}", line);
                 String[] words = line.split(";");
                 Entry entry = new Entry();
                 entry.setEnglishWord(words[0]);
-                entry.setPolishWord(words[1]);
-                entry.setGermanWord(words[2]);
+                entry.setGermanWord(words[1]);
+                entry.setPolishWord(words[2]);
                 entryRepository.addTranslation(entry);
             }
         } catch (IOException e) {
